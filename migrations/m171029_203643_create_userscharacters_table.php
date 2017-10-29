@@ -24,7 +24,7 @@ class m171029_203643_create_userscharacters_table extends Migration
             'speechcolor' => $this->string(10),
             'oskin' => $this->string(20),
             'flags' => $this->string(500),
-            'dam' => $this->double(2),
+            'dam' => $this->string(15),
             'home' => $this->string(20),
             'ostr' => $this->integer(),
             'oint' => $this->integer(),
