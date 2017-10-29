@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
 * [UserController Kullanıcı işlemlerinin yapıldığı controller sınıfı]
 */
-class UserController extends \yii\web\Controller
+class UserController extends Controller
 {
 
   /**
@@ -55,6 +55,7 @@ class UserController extends \yii\web\Controller
 
     $model = new LoginForm();
     if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
       return $this->goBack();
     }
     return $this->render('login', [
@@ -100,6 +101,7 @@ class UserController extends \yii\web\Controller
     $userModel->tcno = $model->tcno;
     $userModel->password = sha1($model->password);
     $userModel->uo_active = 0;
+    $userModel->register_date = date("Y-m-d H:i:s");
 
     $isError = false;
     //Kullanıcı adının daha önce alınıp alınmadığı kontrol ediliyor
@@ -136,7 +138,7 @@ class UserController extends \yii\web\Controller
       //E-posta onaylama parametresi aktif edildi ise e-posta gönderiliyor
       if(\Yii::$app->params['confirmEmail'])
       {
-        $email = \Yii::$app->mailer->compose()
+        \Yii::$app->mailer->compose()
         ->setTo($userModel->email)
         ->setFrom([\Yii::$app->params['adminEmail'] => \Yii::$app->params['serverName'] . ' robot'])
         ->setSubject('Kayıt Onaylama')

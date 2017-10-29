@@ -23,6 +23,8 @@ class SeedController extends Controller
     $user->password = sha1("123456");
     $user->email = "kyzaghan@ismailkose.com.tr";
     $user->is_active = 0;
+    $user->register_date = date("Y-m-d H:i:s");
     $user->save();
+    return null;
   }
 }

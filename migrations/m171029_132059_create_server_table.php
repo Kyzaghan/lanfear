@@ -14,7 +14,8 @@ class m171029_132059_create_server_table extends Migration
     {
         $this->createTable('server', [
             'id' => $this->primaryKey(),
-            'capacity' => $this->integer
+            'capacity' => $this->integer()->notNull(),
+            'currentOnline' => $this->integer()->notNull()
         ]);
     }
 
