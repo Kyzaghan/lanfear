@@ -5,11 +5,12 @@ use app\models\RegisterForm;
 use app\models\LoginForm;
 use app\models\Users;
 
+use app\models\UsersLogin;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-
+use yii\web\Request;
 /**
 * [UserController Kullanıcı işlemlerinin yapıldığı controller sınıfı]
 */
@@ -25,10 +26,10 @@ class UserController extends Controller
     return [
       'access' => [
         'class' => AccessControl::className(),
-        'only' => ['logout'],
+        'only' => ['logout', 'index'],
         'rules' => [
           [
-            'actions' => ['logout'],
+            'actions' => ['logout', 'index'],
             'allow' => true,
             'roles' => ['@'],
           ],
@@ -55,8 +56,13 @@ class UserController extends Controller
 
     $model = new LoginForm();
     if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-      return $this->goBack();
+        $users_login = new UsersLogin();
+        $users_login->user_id = Yii::$app->user->id;
+        $users_login->login_time = date("Y-m-d H:i:s");
+        $users_login->ip = Yii::$app->request->getUserIP();
+        $users_login->user_agent = Yii::$app->request->getUserAgent();
+        $users_login->save();
+      return $this->redirect(['user/index']);
     }
     return $this->render('login', [
       'model' => $model,
