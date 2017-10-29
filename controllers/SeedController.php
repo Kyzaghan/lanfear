@@ -17,6 +17,17 @@ class SeedController extends Controller
      */
     public function actionIndex()
     {
+        $oldApp = \Yii::$app;
+        new \yii\console\Application([
+            'id'            => 'Command runner',
+            'basePath'      => '@app',
+            'components'    => [
+                'db' => $oldApp->db,
+            ],
+        ]);
+        \Yii::$app->runAction('migrate', ['migrationPath' => '@app/migrations/', 'interactive' => false]);
+        \Yii::$app = $oldApp;
+
 
         //Varsayılan Kullanıcı
         $user = new Users();

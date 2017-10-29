@@ -57,7 +57,7 @@ class LoginForm extends Model
   */
   public function login()
   {
-    if ($this->validate()) {
+    if ($this->validate() && $this->getUser()->is_active) {
         $this->getUser()->last_login = date('Y-m-d H:i:s');
         $this->getUser()->save();
       return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
