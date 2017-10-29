@@ -32,11 +32,11 @@ $config = [
             'useFileTransport' => false,
             'transport' => [
               'class' => 'Swift_SmtpTransport',
-              'host' => 'smtp.yandex.com',
-              'username' => 'ik@ismailkose.com.tr',
-              'password' => '',
-              'port' => '465',
-              'encryption' => 'ssl',
+              'host' => $params['smtpServer'],
+              'username' => $params['smtpUsername'],
+              'password' => $params['smtpPassword'],
+              'port' => $params['smtpPort'],
+              'encryption' => $params['smtpEncryption'],
             ],
         ],
         'log' => [

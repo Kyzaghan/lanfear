@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::a('Şifremi Unuttum',Yii::$app->urlManager->createAbsoluteUrl(['user/password_recovery']), ['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
                 <?= Html::submitButton('Giriş yap', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>

@@ -19,6 +19,8 @@ use yii\web\IdentityInterface;
 * @property string $register_date
 * @property string $last_login
 * @property integer $tcno
+* @property integer $uo_active
+* @property string uo_password
 */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
