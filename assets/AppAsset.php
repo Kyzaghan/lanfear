@@ -22,7 +22,8 @@ class AppAsset extends AssetBundle
         'plugin/bootcards/css/bootcards-desktop.css',
     ];
     public $js = [
-    'plugin/bootcards/js/bootcards.min.js',
+        'plugin/bootcards/js/bootcards.min.js',
+        'js/site.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
