@@ -141,7 +141,7 @@ class UserController extends Controller
         }
 
         //Kaydetme işlemi yapılıyor, eğer başarısızsa kayıt sayfasına geri dönecek başarılı ise giriş sayfasına gidecek.
-        if ($userModel->save()) {
+        if ($model->validate() && $userModel->validate() && $userModel->save()) {
 
             //E-posta onaylama parametresi aktif edildi ise e-posta gönderiliyor
             if(\Yii::$app->params['confirmEmail'])
