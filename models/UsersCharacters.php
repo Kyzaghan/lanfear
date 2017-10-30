@@ -85,6 +85,7 @@ use Yii;
  * @property integer $Mysticism
  * @property integer $Imbuing
  * @property integer $Throwing
+ * @property integer $gold
  */
 class UsersCharacters extends \yii\db\ActiveRecord
 {
@@ -103,7 +104,7 @@ class UsersCharacters extends \yii\db\ActiveRecord
     {
         return [
             [['serial', 'create', 'name', 'color', 'account'], 'required'],
-            [['create', 'ostr', 'oint', 'odex', 'ofood', 'hits', 'stam', 'mana', 'food', 'anatomy', 'AnimalLore', 'ItemID', 'ArmsLore', 'Parrying', 'Begging', 'Blacksmithing', 'Bowcraft', 'Peacemaking', 'Camping', 'Carpentry', 'Cartography', 'Cooking', 'DetectingHidden', 'Enticement', 'EvaluatingIntel', 'Healing', 'Fishing', 'Forensics', 'Herding', 'Hiding', 'Provocation', 'Inscription', 'Lockpicking', 'Magery', 'MagicResistance', 'Tactics', 'Snooping', 'Musicianship', 'Poisoning', 'Archery', 'SpiritSpeak', 'Stealing', 'Tailoring', 'Taming', 'TasteID', 'Tinkering', 'Tracking', 'Veterinary', 'Swordsmanship', 'Macefighting', 'Fencing', 'Wrestling', 'Lumberjacking', 'Mining', 'Meditation', 'Stealth', 'RemoveTrap', 'Necromancy', 'Focus', 'Chivalry', 'Bushido', 'Ninjitsu', 'Spellweaving', 'Mysticism', 'Imbuing', 'Throwing'], 'integer'],
+            [['create', 'ostr', 'oint', 'odex', 'ofood', 'hits', 'stam', 'mana', 'food', 'anatomy', 'AnimalLore', 'ItemID', 'ArmsLore', 'Parrying', 'Begging', 'Blacksmithing', 'Bowcraft', 'Peacemaking', 'Camping', 'Carpentry', 'Cartography', 'Cooking', 'DetectingHidden', 'Enticement', 'EvaluatingIntel', 'Healing', 'Fishing', 'Forensics', 'Herding', 'Hiding', 'Provocation', 'Inscription', 'Lockpicking', 'Magery', 'MagicResistance', 'Tactics', 'Snooping', 'Musicianship', 'Poisoning', 'Archery', 'SpiritSpeak', 'Stealing', 'Tailoring', 'Taming', 'TasteID', 'Tinkering', 'Tracking', 'Veterinary', 'Swordsmanship', 'Macefighting', 'Fencing', 'Wrestling', 'Lumberjacking', 'Mining', 'Meditation', 'Stealth', 'RemoveTrap', 'Necromancy', 'Focus', 'Chivalry', 'Bushido', 'Ninjitsu', 'Spellweaving', 'Mysticism', 'Imbuing', 'Throwing', 'gold'], 'integer'],
             [['serial', 'resphysical'], 'string', 'max' => 50],
             [['name'], 'string', 'max' => 100],
             [['color', 'speechcolor'], 'string', 'max' => 10],
@@ -200,6 +201,7 @@ class UsersCharacters extends \yii\db\ActiveRecord
             'Mysticism' => 'Mysticism',
             'Imbuing' => 'Imbuing',
             'Throwing' => 'Throwing',
+            'gold' => 'Gold'
         ];
     }
 }

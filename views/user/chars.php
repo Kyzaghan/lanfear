@@ -18,6 +18,10 @@ if(!$model)
         ],
         [
             'class' => '\kartik\grid\DataColumn',
+            'attribute' => 'gold'
+        ],
+        [
+            'class' => '\kartik\grid\DataColumn',
             'attribute' => 'dam'
         ],
         [
