@@ -1,0 +1,3 @@
+﻿[EVENTS e_lanfear]
+ON=@login
+f_lanfear_upload_character_data
