@@ -2,11 +2,8 @@
 
 namespace app\models;
 
-use Yii;
-use yii\base\NotSupportedException;
-use yii\db\ActiveRecord;
 use yii\helpers\Security;
-use yii\web\IdentityInterface;
+use yii\helpers\Url;
 
 /**
 * This is the model class for table "users".
@@ -129,5 +126,14 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
   public function validatePassword($password)
   {
     return $this->password === sha1($password);
+  }
+
+    /**
+     * Kullanıcı karakter listesi için link bilgisi döner
+     * @param $account
+     * @return mixed
+     */
+  public static function getUserLink($account) {
+     return Url::to(['user/show_user_chars', 'account' => $account]);
   }
 }

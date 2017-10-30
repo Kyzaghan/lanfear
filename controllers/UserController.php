@@ -6,12 +6,14 @@ use app\models\RegisterForm;
 use app\models\LoginForm;
 use app\models\Users;
 
+use app\models\UsersCharacters;
 use app\models\UsersLogin;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\web\Request;
+use yii\data\ActiveDataProvider;
+
 /**
  * [UserController Kullanıcı işlemlerinin yapıldığı controller sınıfı]
  */
@@ -88,6 +90,32 @@ class UserController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    /**
+     * [actionIndex Kullanıcı karakterleri]
+     * @return [view] [View render edip karakterleri modele ekler]
+     */
+    public function actionShow_user_chars($account)
+    {
+        //Hesabın karakterleri
+        $query = UsersCharacters::find()->where(['account' => $account]);
+
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'name' => SORT_ASC
+                ]
+            ],
+        ]);
+
+       return $this->render('chars', [
+            'model' => $provider,
+        ]);
     }
 
     /**
@@ -253,7 +281,7 @@ class UserController extends Controller
             $data['message'] = "Kullanıcı bulunamadı veya aktivasyon kodu geçersiz.";
             $data['status'] = "danger";
         }
-        return $this->render('SendNewPassword', [
+        return $this->render('send_new_password', [
             'model' => $data,
         ]);
     }
