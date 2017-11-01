@@ -29,10 +29,10 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'index'],
+                'only' => ['logout', 'home'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'home'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -47,7 +47,7 @@ class UserController extends Controller
         ];
     }
 
-    /**
+    /**index
      * [actionLogin Giriş işlemi]
      * @return [view] [Başarılı ise geri, başarısız ise giriş sayfasına ve zaten oturum açmışsa anasayfaya yönlendirir.]
      */
@@ -65,7 +65,7 @@ class UserController extends Controller
             $users_login->ip = Yii::$app->request->getUserIP();
             $users_login->user_agent = Yii::$app->request->getUserAgent();
             $users_login->save();
-            return $this->redirect(['user/index']);
+            return $this->redirect(['user/home']);
         }
         return $this->render('login', [
             'model' => $model,
@@ -87,7 +87,7 @@ class UserController extends Controller
      * [actionIndex Kullanıcı anasayfası]
      * @return [view] [Anasayfa view dosyasını render eder]
      */
-    public function actionIndex()
+    public function actionHome()
     {
         return $this->render('index');
     }
@@ -115,6 +115,7 @@ class UserController extends Controller
 
        return $this->render('chars', [
             'model' => $provider,
+            'searchModel' => $provider
         ]);
     }
 
@@ -233,7 +234,7 @@ class UserController extends Controller
         $model = new PasswordRecoveryForm();
         if ($model->load(Yii::$app->request->post()) && $model->recovery()) {
 
-            return $this->redirect(['site/index']);
+            return $this->redirect(['site/home']);
         }
 
         return $this->render('recovery', [

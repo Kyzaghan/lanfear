@@ -37,7 +37,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Anasayfa', 'url' => ['/site/index']],
+            ['label' => 'Anasayfa', 'url' => ['/site/home']],
             Yii::$app->user->isGuest ? (
               ['label' => 'Kayıt Ol', 'url' => ['/user/register']]
               )

@@ -3,14 +3,12 @@
 
 use kartik\grid\GridView;
 
-if(!$model)
-{
-    return;
-}
 ?>
 <?php echo GridView::widget([
     'dataProvider' => $model,
     'export' => false,
+    'responsive'=>true,
+    'filterModel' => $searchModel,
     'columns' => [
         [
             'class' => '\kartik\grid\DataColumn',

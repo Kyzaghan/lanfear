@@ -9,6 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'language'=>'tr',
     'timeZone' => 'Europe/Istanbul',
+    'defaultRoute' => 'site/home',
     'modules' => [
         'gridview' =>  [
             'class' => '\kartik\grid\Module'
