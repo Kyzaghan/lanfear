@@ -22,7 +22,7 @@ use yii\helpers\Url;
 * @property string $gsm
 */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
-{212-1212-121
+{
   /**
   * @inheritdoc
   */
