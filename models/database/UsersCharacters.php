@@ -26,65 +26,70 @@ namespace app\models\database;
  * @property integer $stam
  * @property integer $mana
  * @property integer $food
- * @property integer $anatomy
- * @property integer $AnimalLore
- * @property integer $ItemID
- * @property integer $ArmsLore
- * @property integer $Parrying
- * @property integer $Begging
- * @property integer $Blacksmithing
- * @property integer $Bowcraft
- * @property integer $Peacemaking
- * @property integer $Camping
- * @property integer $Carpentry
- * @property integer $Cartography
- * @property integer $Cooking
- * @property integer $DetectingHidden
- * @property integer $Enticement
- * @property integer $EvaluatingIntel
- * @property integer $Healing
- * @property integer $Fishing
- * @property integer $Forensics
- * @property integer $Herding
- * @property integer $Hiding
- * @property integer $Provocation
- * @property integer $Inscription
- * @property integer $Lockpicking
- * @property integer $Magery
- * @property integer $MagicResistance
- * @property integer $Tactics
- * @property integer $Snooping
- * @property integer $Musicianship
- * @property integer $Poisoning
- * @property integer $Archery
- * @property integer $SpiritSpeak
- * @property integer $Stealing
- * @property integer $Tailoring
- * @property integer $Taming
- * @property integer $TasteID
- * @property integer $Tinkering
- * @property integer $Tracking
- * @property integer $Veterinary
- * @property integer $Swordsmanship
- * @property integer $Macefighting
- * @property integer $Fencing
- * @property integer $Wrestling
- * @property integer $Lumberjacking
- * @property integer $Mining
- * @property integer $Meditation
- * @property integer $Stealth
- * @property integer $RemoveTrap
- * @property integer $Necromancy
- * @property integer $Focus
- * @property integer $Chivalry
- * @property integer $Bushido
- * @property integer $Ninjitsu
- * @property integer $Spellweaving
- * @property integer $Mysticism
- * @property integer $Imbuing
- * @property integer $Throwing
+ * @property integer $fame
+ * @property integer $karma
+ * @property string $title
+ * @property double $Alchemy
+ * @property double $Anatomy
+ * @property double $AnimalLore
+ * @property double $ItemID
+ * @property double $ArmsLore
+ * @property double $Parrying
+ * @property double $Begging
+ * @property double $Blacksmithing
+ * @property double $Bowcraft
+ * @property double $Peacemaking
+ * @property double $Camping
+ * @property double $Carpentry
+ * @property double $Cartography
+ * @property double $Cooking
+ * @property double $DetectingHidden
+ * @property double $Enticement
+ * @property double $EvaluatingIntel
+ * @property double $Healing
+ * @property double $Fishing
+ * @property double $Forensics
+ * @property double $Herding
+ * @property double $Hiding
+ * @property double $Provocation
+ * @property double $Inscription
+ * @property double $Lockpicking
+ * @property double $Magery
+ * @property double $MagicResistance
+ * @property double $Tactics
+ * @property double $Snooping
+ * @property double $Musicianship
+ * @property double $Poisoning
+ * @property double $Archery
+ * @property double $SpiritSpeak
+ * @property double $Stealing
+ * @property double $Tailoring
+ * @property double $Taming
+ * @property double $TasteID
+ * @property double $Tinkering
+ * @property double $Tracking
+ * @property double $Veterinary
+ * @property double $Swordsmanship
+ * @property double $Macefighting
+ * @property double $Fencing
+ * @property double $Wrestling
+ * @property double $Lumberjacking
+ * @property double $Mining
+ * @property double $Meditation
+ * @property double $Stealth
+ * @property double $RemoveTrap
+ * @property double $Necromancy
+ * @property double $Focus
+ * @property double $Chivalry
+ * @property double $Bushido
+ * @property double $Ninjitsu
+ * @property double $Spellweaving
+ * @property double $Mysticism
+ * @property double $Imbuing
+ * @property double $Throwing
  * @property integer $gold
  * @property boolean $is_online
+ * @property double $Discordance
  */
 class UsersCharacters extends \yii\db\ActiveRecord
 {
@@ -103,9 +108,9 @@ class UsersCharacters extends \yii\db\ActiveRecord
     {
         return [
             [['serial', 'create', 'name', 'color', 'account'], 'required'],
-            [['create', 'ostr', 'oint', 'odex', 'ofood', 'hits', 'stam', 'mana', 'food', 'anatomy', 'AnimalLore', 'ItemID', 'ArmsLore', 'Parrying', 'Begging', 'Blacksmithing', 'Bowcraft', 'Peacemaking', 'Camping', 'Carpentry', 'Cartography', 'Cooking', 'DetectingHidden', 'Enticement', 'EvaluatingIntel', 'Healing', 'Fishing', 'Forensics', 'Herding', 'Hiding', 'Provocation', 'Inscription', 'Lockpicking', 'Magery', 'MagicResistance', 'Tactics', 'Snooping', 'Musicianship', 'Poisoning', 'Archery', 'SpiritSpeak', 'Stealing', 'Tailoring', 'Taming', 'TasteID', 'Tinkering', 'Tracking', 'Veterinary', 'Swordsmanship', 'Macefighting', 'Fencing', 'Wrestling', 'Lumberjacking', 'Mining', 'Meditation', 'Stealth', 'RemoveTrap', 'Necromancy', 'Focus', 'Chivalry', 'Bushido', 'Ninjitsu', 'Spellweaving', 'Mysticism', 'Imbuing', 'Throwing', 'gold'], 'integer'],
+            [['create', 'ostr', 'oint', 'odex', 'ofood', 'hits', 'stam', 'mana', 'food', 'fame', 'karma', 'Alchemy', 'Anatomy', 'AnimalLore', 'ItemID', 'ArmsLore', 'Parrying', 'Begging', 'Blacksmithing', 'Bowcraft', 'Peacemaking', 'Camping', 'Carpentry', 'Cartography', 'Cooking', 'DetectingHidden', 'Enticement', 'EvaluatingIntel', 'Healing', 'Fishing', 'Forensics', 'Herding', 'Hiding', 'Provocation', 'Inscription', 'Lockpicking', 'Magery', 'MagicResistance', 'Tactics', 'Snooping', 'Musicianship', 'Poisoning', 'Archery', 'SpiritSpeak', 'Stealing', 'Tailoring', 'Taming', 'TasteID', 'Tinkering', 'Tracking', 'Veterinary', 'Swordsmanship', 'Macefighting', 'Fencing', 'Wrestling', 'Lumberjacking', 'Mining', 'Meditation', 'Stealth', 'RemoveTrap', 'Necromancy', 'Focus', 'Chivalry', 'Bushido', 'Ninjitsu', 'Spellweaving', 'Mysticism', 'Imbuing', 'Throwing', 'gold', 'Discordance'], 'integer'],
             [['serial', 'resphysical'], 'string', 'max' => 50],
-            [['name'], 'string', 'max' => 100],
+            [['name', 'title'], 'string', 'max' => 100],
             [['color', 'speechcolor'], 'string', 'max' => 10],
             [['events'], 'string', 'max' => 800],
             [['account'], 'string', 'max' => 35],
@@ -144,7 +149,7 @@ class UsersCharacters extends \yii\db\ActiveRecord
             'stam' => 'STAM',
             'mana' => 'MANA',
             'food' => 'Food',
-            'anatomy' => 'Anatomy',
+            'Anatomy' => 'Anatomy',
             'AnimalLore' => 'Animal Lore',
             'ItemID' => 'Item ID',
             'ArmsLore' => 'Arms Lore',

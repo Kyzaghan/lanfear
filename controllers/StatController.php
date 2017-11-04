@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\database\UsersCharacters;
 use app\models\search\UsersCharactersSearch;
 use yii\web\Controller;
 use Yii;
@@ -53,6 +54,18 @@ class StatController extends Controller
         return $this->render('chars', [
             'model' => $searchModel->search(Yii::$app->request->queryParams),
             'searchModel' => $searchModel
+        ]);
+    }
+
+    /**
+     * Karakter Detayı
+     * @return string
+     */
+    public function actionChar_detail($char)
+    {
+        $searchModel = UsersCharacters::find()->where(['=', 'serial', $char])->one();
+        return $this->render('char_detail', [
+            'model' => $searchModel,
         ]);
     }
 }

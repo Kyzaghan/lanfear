@@ -2,7 +2,10 @@
 /* @var $this yii\web\View */
 
 use kartik\grid\GridView;
+use yii\helpers\Url;
 
+$this->title = 'Karakter Listesi';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php echo GridView::widget([
     'dataProvider' => $model,
@@ -16,9 +19,13 @@ use kartik\grid\GridView;
             'attribute' => 'account'
         ],
         [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'name'
+            'attribute' => 'name',
+            'format' => 'raw',
+            'value'=>function ($data) {
+                return "<a href='". Url::to(['stat/char_detail', 'char' => $data->serial])."'>". $data->name ."</a>";
+            },
         ],
+
         [
             'class' => '\kartik\grid\BooleanColumn',
             'attribute' => 'is_online',
