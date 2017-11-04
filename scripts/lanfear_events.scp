@@ -1,6 +1,34 @@
+
 [EVENTS e_lanfear_user]
 ON=@login
 f_lanfear_upload_character_data 1
 
 ON=@logout
 f_lanfear_upload_character_data 0
+
+[TYPEDEF t_lanfear_item] 
+ON=@create
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+ON=@destroy
+f_lanfear_delete_item_data <serial>
+
+ON=@Equip
+
+
+ON=@DropOn_Ground
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+ON=@PickUp_Ground
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+ON=@PickUp_Pack
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+ON=@PickUp_Self
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+ON=@PickUp_Stack
+f_lanfear_upload_item_data <serial>, <baseid>, <name>, <color>, <timer>,  <amount>, <type>, <more1>, <more2>, <attr>, <weight>, <layer>, <instances>, "<armor>", <value>, <dye>, "<morep>", <link>, <dispid>, <cont>
+
+

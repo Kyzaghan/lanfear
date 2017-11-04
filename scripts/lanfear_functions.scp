@@ -8,18 +8,46 @@ ENDIF
 RETURN
 
 //
-// Bilgiler veritabanına kaydediliyor
+// Item bilgileri veritabnından siliniyor
 //
-[FUNCTION f_lanfear_upload_character_data]
+[FUNCTION f_lanfear_login_db]
 IF <DB.CONNECTED>
     SERV.LOG Bağlantı zaten yapılmış.
 ELSE
     DB.CONNECT
 ENDIF
-SERV.LOG Kullanıcı bilgileri veritabanına yükleniyor.
+RETURN
+
+//
+// Karakter bilgileri veritabanına kaydediliyor
+//
+[FUNCTION f_lanfear_upload_character_data]
+f_lanfear_login_db // DB Bağlantısı
+
 IF (<DB.AEXECUTE f_data_callback, REPLACE INTO users_characters (serial, `create`, name, color, resphysical, `events`, account, p, speechcolor, oskin, flags, dam, home, ostr, oint, odex, ofood, hits, stam, mana, food, anatomy, AnimalLore, ItemID, ArmsLore, Parrying, Begging, Blacksmithing, Bowcraft, Peacemaking, Camping, Carpentry, Cartography, Cooking, DetectingHidden, Enticement, EvaluatingIntel, Healing, Fishing, Forensics, Herding, Hiding, Provocation, Inscription, Lockpicking, Magery, MagicResistance, Tactics, Snooping, Musicianship, Poisoning, Archery, SpiritSpeak, Stealing, Tailoring, Taming, TasteID, Tinkering, Tracking, Veterinary, Swordsmanship, Macefighting, Fencing, Wrestling, Lumberjacking, Mining, Meditation, Stealth, RemoveTrap, Necromancy, Focus, Chivalry, Bushido, Ninjitsu, Spellweaving, Mysticism, Imbuing, Throwing, gold, is_online) VALUES ('<serial>', <create>, '<name>', '<color>', <resphysical>, '<events>', '<account>', '<p>', '<speechcolor>', '<oskin>', '<flags>', '<dam>', '<home>', <ostr>, <oint>, <odex>, <ofood>, <hits>, <stam>, <mana>, <food>, <anatomy>, <AnimalLore>, <ItemID>, <ArmsLore>, <Parrying>, <Begging>, <Blacksmithing>, <Bowcraft>, <Peacemaking>, <Camping>, <Carpentry>, <Cartography>, <Cooking>, <DetectingHidden>, <Enticement>, <EvaluatingIntel>, <Healing>, <Fishing>, <Forensics>, <Herding>, <Hiding>, <Provocation>, <Inscription>, <Lockpicking>, <Magery>, <MagicResistance>, <Tactics>, <Snooping>, <Musicianship>, <Poisoning>, <Archery>, <SpiritSpeak>, <Stealing>, <Tailoring>, <Taming>, <TasteID>, <Tinkering>, <Tracking>, <Veterinary>, <Swordsmanship>, <Macefighting>, <Fencing>, <Wrestling>, <Lumberjacking>, <Mining>, <Meditation>, <Stealth>, <RemoveTrap>, <Necromancy>, <Focus>, <Chivalry>, <Bushido>, <Ninjitsu>, <Spellweaving>, <Mysticism>, <Imbuing>, <Throwing>, <gold>, <ARGN1>); > == 0)
     SERV.LOG sorgu sıraya alınamadı
-ELSE
-    SERV.LOG sorgu sıraya alındı
 ENDIF
 RETURN
+
+//
+// Item bilgileri veritabanına kaydediliyor
+//
+[FUNCTION f_lanfear_upload_item_data]
+f_lanfear_login_db // DB Bağlantısı
+SERV.LOG <ARGV.19>
+IF (<DB.AEXECUTE f_data_callback, REPLACE INTO items (`serial`, `base_id`, `name`, `color`, `timer`, `amount`, `type`, `more1`, `more2`, `attr`, `weight`, `layer`, `instances`, `armor`, `value`, `dye`, `more_p`, `link`, `disp_id`, `cont`) VALUES ('<ARGV.0>', '<ARGV.1>', '<ARGV.2>', '<ARGV.3>', <ARGV.4>, <ARGV.5>, '<ARGV.6>', '<ARGV.7>', '<ARGV.8>', '<ARGV.9>', <ARGV.10>, <ARGV.11>, <ARGV.12>, '<ARGV.13>', '<ARGV.14>', '<ARGV.15>',                                                                                                                                                                                                   '<ARGV.16>', '<ARGV.17>', '<ARGV.18>', '<ARGV.19>'); > == 0)
+    SERV.LOG sorgu sıraya alınamadı
+ENDIF
+RETURN
+
+//
+// Item bilgileri veritabnından siliniyor
+//
+[FUNCTION f_lanfear_delete_item_data]
+f_lanfear_login_db // DB Bağlantısı
+
+IF (<DB.AEXECUTE f_data_callback, DELETE FROM items WHERE serial = '<serial>'; > == 0)
+    SERV.LOG sorgu sıraya alınamadı
+ENDIF
+RETURN
+
