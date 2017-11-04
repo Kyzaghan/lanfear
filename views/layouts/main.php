@@ -2,12 +2,16 @@
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
+use kartik\icons\Icon;
+Icon::map($this);
+
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -36,16 +40,21 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
         'items' => [
-            ['label' => 'Anasayfa', 'url' => ['/site/home']],
+            ['label' => Icon::show('home') .'Anasayfa', 'url' => ['/site/home']],
+            ['label' => Icon::show('pie-chart') .'İstatistikler',
+                'items' => [
+                ['label' => Icon::show('users') .'Karakter Listesi', 'url' => ['/stat/characters']],
+            ]],
             Yii::$app->user->isGuest ? (
-              ['label' => 'Kayıt Ol', 'url' => ['/user/register']]
+              ['label' => Icon::show('user-plus') .'Kayıt Ol', 'url' => ['/user/register']]
               )
               : (
                 ''
               ),
             Yii::$app->user->isGuest ? (
-                ['label' => 'Giriş yap', 'url' => ['/user/login']]
+                ['label' => Icon::show('sign-in') .'Giriş yap', 'url' => ['/user/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/user/logout'], 'post')

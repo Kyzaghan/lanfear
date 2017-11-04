@@ -1,3 +1,6 @@
-[EVENTS e_lanfear]
+[EVENTS e_lanfear_user]
 ON=@login
-f_lanfear_upload_character_data
+f_lanfear_upload_character_data 1
+
+ON=@logout
+f_lanfear_upload_character_data 0

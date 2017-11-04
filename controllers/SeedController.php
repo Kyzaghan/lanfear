@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Users;
-use app\models\Server;
+use app\models\database\Users;
+use app\models\database\Server;
 use yii\web\Controller;
 
 /**
@@ -15,7 +15,7 @@ class SeedController extends Controller
      * [actionIndex İşlemler]
      * @return [null] [null]
      */
-    public function actionIndex()
+    public function actionHome()
     {
         $oldApp = \Yii::$app;
         new \yii\console\Application([

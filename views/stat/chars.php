@@ -10,9 +10,20 @@ use kartik\grid\GridView;
     'responsive'=>true,
     'filterModel' => $searchModel,
     'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute' => 'account'
+        ],
         [
             'class' => '\kartik\grid\DataColumn',
             'attribute' => 'name'
+        ],
+        [
+            'class' => '\kartik\grid\BooleanColumn',
+            'attribute' => 'is_online',
+            'trueLabel' => 'Evet',
+            'falseLabel' => 'Hayır'
         ],
         [
             'class' => '\kartik\grid\DataColumn',
@@ -33,18 +44,6 @@ use kartik\grid\GridView;
         [
             'class' => '\kartik\grid\DataColumn',
             'attribute' => 'oint'
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'hits'
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'stam'
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'mana'
         ]
     ]
     // other widget settings

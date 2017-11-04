@@ -1,8 +1,7 @@
 <?php
 
-namespace app\models;
+namespace app\models\database;
 
-use Yii;
 
 /**
  * This is the model class for table "server".

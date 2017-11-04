@@ -15,6 +15,7 @@ class RegisterForm extends Model
   public $password;
   public $verifyCode;
   public $tcno;
+  public $gsm;
 
 
   /**
@@ -38,7 +39,9 @@ class RegisterForm extends Model
       [['tcno'], 'integer'],
       //Tc no string olarak uzunluk kontrolü yapılmalı
       ['tcno', 'string',  'min' => 11, 'max' => 11],
-      //Kullanıcı adı sadece harfler ve sayılardan oluşmalı.
+        //Gsm pattern
+        [['gsm'], 'match', 'pattern' => '/^[0-9]{3}-[0-9]{4}-[0-9]{3}$/'],
+        //Kullanıcı adı sadece harfler ve sayılardan oluşmalı.
       ['username', 'match', 'pattern' => '/^[a-zA-Z1-9\s]+$/', 'message' => 'Kullanıcı adı sadece harfler ve sayılardan oluşabilir.']
     ];
   }

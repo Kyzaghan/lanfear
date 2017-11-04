@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\Alert;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
@@ -13,7 +14,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="register">
-
+<div>
+    <?php
+    echo Alert::widget([
+        'type' => Alert::TYPE_DANGER,
+        'title' => 'Önemli Uyarı',
+        'body' => 'Lütfen başka sunucularda kullandığınız parolanızı, bu sunucuda kullanmayınız.'
+    ]);
+    ?>
+</div>
     <?php $form = ActiveForm::begin(); ?>
     <div class="form-group">
       <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
@@ -24,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="form-group">
       <?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
+    </div>
+    <div class="form-group">
+        <?= $form->field($model, 'gsm')->widget(\yii\widgets\MaskedInput::className(), [
+            'mask' => '999-9999-999',
+        ]) ?>
     </div>
     <div class="form-group">
       <?= $form->field($model, 'tcno')->textInput() ?>

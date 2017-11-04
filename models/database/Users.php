@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\database;
 
 use yii\helpers\Security;
 use yii\helpers\Url;
@@ -17,10 +17,12 @@ use yii\helpers\Url;
 * @property string $last_login
 * @property integer $tcno
 * @property integer $uo_active
-* @property string uo_password
+* @property string $uo_password
+* @property string $registered_ip
+* @property string $gsm
 */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
-{
+{212-1212-121
   /**
   * @inheritdoc
   */
@@ -39,6 +41,8 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       [['is_active', 'tcno'], 'integer'],
       [['register_date', 'last_login'], 'safe'],
       [['username', 'password', 'email'], 'string', 'max' => 255],
+      [['registered_ip', 'gsm'], 'string', 'max' => 50],
+      [['gsm'], 'match', 'pattern' => '/^[0-9]{3}-[0-9]{4}-[0-9]{3}$/'],
       [['username'], 'unique'],
     ];
   }
@@ -134,6 +138,6 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * @return mixed
      */
   public static function getUserLink($account) {
-     return Url::to(['user/show_user_chars', 'account' => $account]);
+     return Url::to(['stat/characters', 'UsersCharactersSearch[account]' => $account]);
   }
 }

@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\search\UsersCharactersSearch;
 use yii\web\Controller;
+use Yii;
 class StatController extends Controller
 {
     /**
@@ -39,5 +41,18 @@ class StatController extends Controller
     public function actionLast_registered_users()
     {
         return $this->renderPartial('LastRegisteredUsers');
+    }
+
+    /**
+     * Karakter listesi
+     * @return string
+     */
+    public function actionCharacters()
+    {
+        $searchModel = new UsersCharactersSearch();
+        return $this->render('chars', [
+            'model' => $searchModel->search(Yii::$app->request->queryParams),
+            'searchModel' => $searchModel
+        ]);
     }
 }

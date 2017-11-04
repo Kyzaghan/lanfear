@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-use app\models\Users;
+use app\models\database\Users;
 $data = Users::find()->select(['username', 'uo_last_login'])->from('users')->Where(['not', ['uo_last_login' => null]])->limit(5)->orderBy('uo_last_login DESC')->asArray()->all();
 $count = 1;
 ?>

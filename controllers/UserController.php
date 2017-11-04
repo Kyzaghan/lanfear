@@ -4,9 +4,10 @@ namespace app\controllers;
 use app\models\PasswordRecoveryForm;
 use app\models\RegisterForm;
 use app\models\LoginForm;
-use app\models\Users;
+use app\models\database\Users;
 
-use app\models\UsersCharacters;
+use app\models\database\UsersCharacters;
+use app\models\search\UsersCharactersSearch;
 use app\models\UsersLogin;
 use Yii;
 use yii\filters\AccessControl;
@@ -93,39 +94,17 @@ class UserController extends Controller
     }
 
     /**
-     * [actionIndex Kullanıcı karakterleri]
-     * @return [view] [View render edip karakterleri modele ekler]
-     */
-    public function actionShow_user_chars($account)
-    {
-        //Hesabın karakterleri
-        $query = UsersCharacters::find()->where(['account' => $account]);
-
-        $provider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'name' => SORT_ASC
-                ]
-            ],
-        ]);
-
-       return $this->render('chars', [
-            'model' => $provider,
-            'searchModel' => $provider
-        ]);
-    }
-
-    /**
      * [actionRegister Kayıt İşlemi]
      * @return [view] [Eğer başarılı ise giriş sayfasına, başarısız ise kayıt sayfasına yönlendirir.]
      */
     public function actionRegister()
     {
         $model = new RegisterForm();
+        if (!Yii::$app->request->post()){
+            return $this->render('register', [
+                'model' => $model,
+            ]);
+        }
         $postVariables = Yii::$app->request->post();
         $model->load($postVariables);
 
@@ -139,7 +118,8 @@ class UserController extends Controller
         $userModel->uo_active = 0;
         $userModel->uo_password = $model->password;
         $userModel->register_date = date("Y-m-d H:i:s");
-
+        $userModel->registered_ip = Yii::$app->getRequest()->getUserIP();
+        $userModel->gsm = $model->gsm;
         $isError = false;
         //Kullanıcı adının daha önce alınıp alınmadığı kontrol ediliyor
         if(Users::find()->where(['username'=> $model->username])->one())
@@ -153,6 +133,18 @@ class UserController extends Controller
         {
             $model->addError('email', 'E-Posta daha önce alınmış.');
             $isError = true;
+        }
+
+        //E-Posta sunucu kontrolü
+        if(\Yii::$app->params['checkEmailDomains'])
+        {
+            $validDomains = explode(',', \Yii::$app->params['validEmailDomains']);
+            list($user, $domain) = explode('@', $model->email);
+
+            if (!in_array($domain, $validDomains)) {
+                $model->addError('email', 'E-Posta domain adresi, izin verilen domainler arasında değil.');
+                $isError = true;
+            }
         }
 
         //Eğer hata varsa model geri dönülüyor

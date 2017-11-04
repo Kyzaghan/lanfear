@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-use app\models\Users;
+use app\models\database\Users;
 
 $data = Users::find()->select(['username', 'register_date'])->from('users')->Where(['not', ['register_date' => null]])->limit(5)->orderBy('register_date DESC')->asArray()->all();
 $count = 1;

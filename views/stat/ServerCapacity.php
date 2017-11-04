@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-use app\models\Server;
+use app\models\database\Server;
 
 $data = Server::findOne(1);
 ?>

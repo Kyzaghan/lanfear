@@ -1,8 +1,6 @@
 <?php
 
-namespace app\models;
-
-use Yii;
+namespace app\models\database;
 
 /**
  * This is the model class for table "users_characters".
@@ -86,6 +84,7 @@ use Yii;
  * @property integer $Imbuing
  * @property integer $Throwing
  * @property integer $gold
+ * @property boolean $is_online
  */
 class UsersCharacters extends \yii\db\ActiveRecord
 {
@@ -114,6 +113,7 @@ class UsersCharacters extends \yii\db\ActiveRecord
             [['flags'], 'string', 'max' => 500],
             [['dam'], 'string', 'max' => 15],
             [['serial'], 'unique'],
+            [['is_online'], 'boolean'],
         ];
     }
 
@@ -129,7 +129,7 @@ class UsersCharacters extends \yii\db\ActiveRecord
             'color' => 'Color',
             'resphysical' => 'Resphysical',
             'events' => 'Events',
-            'account' => 'Account',
+            'account' => 'Hesap',
             'p' => 'P',
             'speechcolor' => 'Speechcolor',
             'oskin' => 'Oskin',
@@ -201,7 +201,8 @@ class UsersCharacters extends \yii\db\ActiveRecord
             'Mysticism' => 'Mysticism',
             'Imbuing' => 'Imbuing',
             'Throwing' => 'Throwing',
-            'gold' => 'Gold'
+            'gold' => 'Gold',
+            'is_online' => 'Oyunda mı?'
         ];
     }
 }
