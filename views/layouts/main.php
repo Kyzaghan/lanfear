@@ -48,24 +48,26 @@ AppAsset::register($this);
                 'items' => [
                 ['label' => Icon::show('users') .'Karakter Listesi', 'url' => ['/stat/characters']],
             ]],
-            Yii::$app->user->isGuest ? (
-              ['label' => Icon::show('user-plus') .'Kayıt Ol', 'url' => ['/user/register']]
-              )
-              : (
-                ''
-              ),
-            Yii::$app->user->isGuest ? (
-                ['label' => Icon::show('sign-in') .'Giriş yap', 'url' => ['/user/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/user/logout'], 'post')
-                . Html::submitButton(
-                    'Çıkış yap (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
+            [
+                'label' => Icon::show('user-plus') .'Kayıt Ol',
+                'url' => ['user/register'],
+                'visible' => Yii::$app->user->isGuest
+            ],
+            [
+                'label' => Icon::show('sign-in') .'Giriş Yap',
+                'url' => ['user/login'],
+                'visible' => Yii::$app->user->isGuest
+            ],
+
+            [
+                'label' => Icon::show('user') . Yii::$app->user->identity->username,
+                'visible' => !Yii::$app->user->isGuest,
+                'items' => [
+                    ['label' => Icon::show('user') .'Profilim', 'url' => ['/user/home']],
+                    ['label' => Icon::show('sign-out') .'Çıkış Yap', 'url' => ['/user/logout']],
+                ]
+            ],
+
         ],
     ]);
     NavBar::end();
