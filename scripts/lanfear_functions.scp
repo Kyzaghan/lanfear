@@ -51,3 +51,36 @@ IF (<DB.AEXECUTE f_data_callback, DELETE FROM items WHERE serial = '<serial>'; >
 ENDIF
 RETURN
 
+//
+//Oyun hesaplarının açılması veya şifrelerinin değiştirilmesi.
+//
+[function f_lanfear_download_user_data]
+f_lanfear_login_db // DB Bağlantısı
+
+IF (<DB.AQUERY f_lanfear_download_user_data_callback, SELECT * FROM users WHERE uo_active=0; > == 0)
+    SERV.LOG sorgu sıraya alınamadı
+ENDIF
+RETURN
+
+//
+//Üye açılışı ASYNC geri dönüş.
+//
+[function f_lanfear_download_user_data_callback]
+IF (<ARGN2> == 0)
+    SERV.LOG Komut çalıştırılırken hata oluştu. (<ARGS>)
+ELSE
+    FOR 0 <EVAL <LOCAL.NUMROWS> - 1>
+    
+            IF (<serv.account.<LOCAL.<dLOCAL._FOR>.username>>)
+                serv.account <LOCAL.<dLOCAL._FOR>.username> password <LOCAL.<dLOCAL._FOR>.uo_password>
+            ELSE
+                serv.account add <LOCAL.<dLOCAL._FOR>.username> <LOCAL.<dLOCAL._FOR>.uo_password>
+            ENDIF
+            
+             IF (<DB.AEXECUTE f_data_callback, UPDATE users SET uo_password=null, uo_active=1 WHERE username='<LOCAL.<dLOCAL._FOR>.username>'; > == 0)
+                    SERV.LOG sorgu sıraya alınamadı
+             ENDIF    
+    ENDFOR
+ENDIF
+RETURN
+
