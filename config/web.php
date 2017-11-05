@@ -62,10 +62,14 @@ $config = [
             'rules' => [
             ],
         ],
-
+        'languageSwitcher' => [
+            'class' => 'app\components\languageSwitcher',
+        ],
     ],
     'params' => $params,
 ];
+
+$config['bootstrap'][] = 'languageSwitcher';
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment

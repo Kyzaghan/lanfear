@@ -2,6 +2,8 @@
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+
+use app\components\languageSwitcher;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -11,8 +13,9 @@ use app\assets\AppAsset;
 use kartik\icons\Icon;
 Icon::map($this);
 
-
 AppAsset::register($this);
+$username =  !Yii::$app->user->isGuest ? Yii::$app->user->identity->username : "";
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -60,14 +63,14 @@ AppAsset::register($this);
             ],
 
             [
-                'label' => Icon::show('user') . Yii::$app->user->identity->username,
+                'label' => Icon::show('user') . $username,
                 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
                     ['label' => Icon::show('user') .'Profilim', 'url' => ['/user/home']],
                     ['label' => Icon::show('sign-out') .'Çıkış Yap', 'url' => ['/user/logout']],
                 ]
             ],
-
+            languageSwitcher::Widget()
         ],
     ]);
     NavBar::end();
