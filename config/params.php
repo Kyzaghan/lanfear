@@ -12,6 +12,8 @@ return [
     'confirmEmail' => false, //Eğer true ise kullanıcılar mutlaka e-posta onaylaması yapmalı.
     'checkEmailDomains' => true, //Sadece belirtilen domainlerden maili kabul etmesi için true yapılmalı.
     'validEmailDomains' => 'gmail.com,hotmail.com,ismailkose.com.tr,yandex.com,yandex.com.tr,yahoo.com,outlook.com,msn.com', //İzin verilen e-posta domainleri
+    'IpRegisterLimit' => true, // Aynı ip üzerinden açılabilecek maksimum hesap sınırı için true yapılmalı
+    'IpRegisterLimitCount'  => 2, // Aynı ip üzerinden maksimum buraya girilen değer kadar üyelik açılabilir.
 
     //Smtp Ayarları
     'smtpServer' => 'smtp.yandex.com', //Smtp Sunucusu

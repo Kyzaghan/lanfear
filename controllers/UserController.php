@@ -121,6 +121,7 @@ class UserController extends Controller
         $userModel->registered_ip = Yii::$app->getRequest()->getUserIP();
         $userModel->gsm = $model->gsm;
         $isError = false;
+
         //Kullanıcı adının daha önce alınıp alınmadığı kontrol ediliyor
         if(Users::find()->where(['username'=> $model->username])->one())
         {
@@ -143,6 +144,19 @@ class UserController extends Controller
 
             if (!in_array($domain, $validDomains)) {
                 $model->addError('email', 'E-Posta domain adresi, izin verilen domainler arasında değil.');
+                $isError = true;
+            }
+        }
+
+        //Ip sınır kontrolü
+        if(\Yii::$app->params['IpRegisterLimit'])
+        {
+            $registeredCount = Users::find()->where(['registered_ip'=> $userModel->registered_ip])->count();
+
+            if($registeredCount >= \Yii::$app->params['IpRegisterLimitCount'])
+            {
+                $model->addError('username',
+                    'Aynı ip üzerinden maksimum '. \Yii::$app->params['IpRegisterLimitCount']. ' kere kayıt olunabilir.');
                 $isError = true;
             }
         }
