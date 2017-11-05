@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use app\models\database\Users;
 
 /**
  * This is the model class for table "users_login".
