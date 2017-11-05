@@ -43,6 +43,7 @@ AppAsset::register($this);
         'encodeLabels' => false,
         'items' => [
             ['label' => Icon::show('home') .'Anasayfa', 'url' => ['/site/home']],
+            ['label' => Icon::show('map') .'Harita', 'url' => ['/map/home']],
             ['label' => Icon::show('pie-chart') .'İstatistikler',
                 'items' => [
                 ['label' => Icon::show('users') .'Karakter Listesi', 'url' => ['/stat/characters']],

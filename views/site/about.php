@@ -2,7 +2,6 @@
 
 /* @var $this yii\web\View */
 
-use yii\helpers\Html;
 
 $this->title = 'Hakkında';
 $this->params['breadcrumbs'][] = $this->title;
