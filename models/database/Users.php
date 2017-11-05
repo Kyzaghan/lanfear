@@ -20,6 +20,7 @@ use yii\helpers\Url;
 * @property string $uo_password
 * @property string $registered_ip
 * @property string $gsm
+* @property string $auth_key
 */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -37,13 +38,15 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
   public function rules()
   {
     return [
-      [['username', 'password', 'email', 'is_active'], 'required'],
-      [['is_active', 'tcno'], 'integer'],
-      [['register_date', 'last_login'], 'safe'],
-      [['username', 'password', 'email'], 'string', 'max' => 255],
-      [['registered_ip', 'gsm'], 'string', 'max' => 50],
-      [['gsm'], 'match', 'pattern' => '/^[0-9]{3}-[0-9]{4}-[0-9]{3}$/'],
-      [['username'], 'unique'],
+        [['username', 'password', 'email', 'is_active'], 'required'],
+        [['is_active', 'tcno'], 'integer'],
+        [['register_date', 'last_login'], 'safe'],
+        [['username', 'password', 'email'], 'string', 'max' => 255],
+        [['registered_ip', 'gsm'], 'string', 'max' => 50],
+        [['auth_key'], 'integer', 'max' => 99999],
+        [['auth_key'], 'integer', 'min' => 10000],
+        [['gsm'], 'match', 'pattern' => '/^[0-9]{3}-[0-9]{4}-[0-9]{3}$/'],
+        [['username'], 'unique'],
     ];
   }
 
@@ -53,14 +56,15 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
   public function attributeLabels()
   {
     return [
-      'id' => 'ID',
-      'username' => 'Kullanıcı Adı',
-      'password' => 'Şifre',
-      'email' => 'E-posta',
-      'is_active' => 'Aktif mi?',
-      'register_date' => 'Kayıt Tarihi',
-      'last_login' => 'Son Giriş',
-      'tcno' => 'T.C. Kimlik Numarası',
+        'id' => 'ID',
+        'username' => 'Kullanıcı Adı',
+        'password' => 'Şifre',
+        'email' => 'E-posta',
+        'is_active' => 'Aktif mi?',
+        'register_date' => 'Kayıt Tarihi',
+        'last_login' => 'Son Giriş',
+        'tcno' => 'T.C. Kimlik Numarası',
+        'auth_key' => 'Onay Kodu'
     ];
   }
 

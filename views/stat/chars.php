@@ -11,6 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider' => $model,
     'export' => false,
     'responsive'=>true,
+    'hover'=>true,
     'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
@@ -25,12 +26,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 return "<a href='". Url::to(['stat/char_detail', 'char' => $data->serial])."'>". $data->name ."</a>";
             },
         ],
-
         [
             'class' => '\kartik\grid\BooleanColumn',
             'attribute' => 'is_online',
             'trueLabel' => 'Evet',
             'falseLabel' => 'Hayır'
+        ],
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute' => 'title'
+        ],
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute' => 'fame'
+        ],
+        [
+            'class' => '\kartik\grid\DataColumn',
+            'attribute' => 'karma'
         ],
         [
             'class' => '\kartik\grid\DataColumn',
@@ -40,18 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => '\kartik\grid\DataColumn',
             'attribute' => 'dam'
         ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'ostr'
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'odex'
-        ],
-        [
-            'class' => '\kartik\grid\DataColumn',
-            'attribute' => 'oint'
-        ]
     ]
     // other widget settings
 ]);

@@ -57,7 +57,7 @@ RETURN
 [function f_lanfear_download_user_data]
 f_lanfear_login_db // DB Bağlantısı
 
-IF (<DB.AQUERY f_lanfear_download_user_data_callback, SELECT * FROM users WHERE uo_active=0; > == 0)
+IF (<DB.AQUERY f_lanfear_download_user_data_callback, SELECT * FROM users WHERE uo_active=0 AND is_active = 1; > == 0)
     SERV.LOG sorgu sıraya alınamadı
 ENDIF
 RETURN

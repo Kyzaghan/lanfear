@@ -6,14 +6,15 @@ use app\models\RegisterForm;
 use app\models\LoginForm;
 use app\models\database\Users;
 
-use app\models\database\UsersCharacters;
-use app\models\search\UsersCharactersSearch;
+use app\models\SmsConfirmForm;
 use app\models\UsersLogin;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\data\ActiveDataProvider;
+
+use app\components\Helper;
 
 /**
  * [UserController Kullanıcı işlemlerinin yapıldığı controller sınıfı]
@@ -148,6 +149,16 @@ class UserController extends Controller
             }
         }
 
+        //Gsm Kontrolü
+        if(\Yii::$app->params['confirmSms'])
+        {
+            if(strlen($userModel->gsm) < 12)
+            {
+                $model->addError('gsm', 'Sunucu da SMS onayı aktif edilmiş, bu yüzden telefon numaranızı girmelisiniz.');
+                $isError = true;
+            }
+        }
+
         //Ip sınır kontrolü
         if(\Yii::$app->params['IpRegisterLimit'])
         {
@@ -169,7 +180,7 @@ class UserController extends Controller
         }
 
         //E-posta onaylama parametresi aktif edildi ise auth_key oluşturuluyor
-        if(\Yii::$app->params['confirmEmail'])
+        if(\Yii::$app->params['confirmEmail'] || \Yii::$app->params['confirmSms'] )
         {
             $userModel->auth_key = $userModel->generateAuthKey();
             $userModel->is_active = 0;
@@ -178,21 +189,25 @@ class UserController extends Controller
         //Kaydetme işlemi yapılıyor, eğer başarısızsa kayıt sayfasına geri dönecek başarılı ise giriş sayfasına gidecek.
         if ($model->validate() && $userModel->validate() && $userModel->save()) {
 
-            //E-posta onaylama parametresi aktif edildi ise e-posta gönderiliyor
-            if(\Yii::$app->params['confirmEmail'])
+
+
+            if(\Yii::$app->params['confirmSms'])
             {
-                \Yii::$app->mailer->compose()
-                    ->setTo($userModel->email)
-                    ->setFrom([\Yii::$app->params['adminEmail'] => \Yii::$app->params['serverName']])
-                    ->setSubject('Kayıt Onaylama')
-                    ->setHtmlBody("
-        Onaylamak için ".\yii\helpers\Html::a('buraya tıkla',
-                            Yii::$app->urlManager->createAbsoluteUrl(
-                                ['user/confirm','id'=>$userModel->id,'key'=>$userModel->auth_key]
-                            ))
-                    )
-                    ->send();
-            }
+                Helper::SendSMS('90'. str_replace($userModel->gsm, '-', ''), '', 'Hesabinizi onaylamak icin kodunuz: ' . $userModel->auth_key);
+                return $this->redirect(Url::to(['sms_confirm', 'username' => $userModel->username]));
+            } else if(\Yii::$app->params['confirmEmail']) //E-posta onaylama parametresi aktif edildi ise e-posta gönderiliyor
+                {
+                    \Yii::$app->mailer->compose()
+                        ->setTo($userModel->email)
+                        ->setFrom([\Yii::$app->params['adminEmail'] => \Yii::$app->params['serverName']])
+                        ->setSubject('Kayıt Onaylama')
+                        ->setHtmlBody("
+                                     Onaylamak için ".\yii\helpers\Html::a('buraya tıkla',
+                                        Yii::$app->urlManager->createAbsoluteUrl(['user/confirm','id'=>$userModel->id,'key'=>$userModel->auth_key]
+                                ))
+                        )
+                        ->send();
+                }
             return $this->redirect(['login']);
         }
 
@@ -292,4 +307,49 @@ class UserController extends Controller
             'model' => $data,
         ]);
     }
+
+    /**
+     * Şifre kurtarmada yeni şifreyi kullanıcıya gönderir
+     * @param $id
+     * @param $key
+     */
+    public function actionSms_confirm()
+    {
+        //Model yaratılıyor
+        $model = new SmsConfirmForm();
+
+        //Eğer istek post değilse, get işlemi için view dönülüyor
+        if (Yii::$app->request->getIsGet()){
+            $model->username = Yii::$app->request->get('username');
+            return $this->render('sms_confirm', [
+                'model' => $model,
+            ]);
+        }
+
+        //Eğer istek post ise gelen veriler modele yükleniyor
+        $postVariables = Yii::$app->request->post();
+        $model->load($postVariables);
+
+        //Kullanıcı ve onay kodu bulunuyor
+        $user = Users::find()->where([
+            'username'=>$model->username,
+            'auth_key'=>$model->auth_key
+        ])->one();
+
+        //Kullanıcı bulundu ise onay işlemi yapılıyor
+        if(!empty($user) && $model->validate()){
+            $user->is_active = 1;
+            $user->auth_key = null;
+            $user->save();
+            Yii::$app->getSession()->setFlash('success','Hesabınız onaylandı!');
+        } else { //Kullanıcı bulunamadı hata dönülüyor.
+            $model->addError('auth_key',
+                'Kullanıcı veya onay kodu bulunamadı');
+        }
+
+        return $this->render('sms_confirm', [
+            'model' => $model,
+        ]);
+    }
+
 }

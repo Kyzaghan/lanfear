@@ -20,7 +20,8 @@ return [
     'checkEmailDomains' => true, //Sadece belirtilen domainlerden maili kabul etmesi için true yapılmalı.
     'validEmailDomains' => 'gmail.com,hotmail.com,ismailkose.com.tr,yandex.com,yandex.com.tr,yahoo.com,outlook.com,msn.com', //İzin verilen e-posta domainleri
     'IpRegisterLimit' => true, // Aynı ip üzerinden açılabilecek maksimum hesap sınırı için true yapılmalı
-    'IpRegisterLimitCount'  => 2, // Aynı ip üzerinden maksimum buraya girilen değer kadar üyelik açılabilir.
+    'IpRegisterLimitCount'  => 232, // Aynı ip üzerinden maksimum buraya girilen değer kadar üyelik açılabilir.
+    'confirmSms' => true,//Sms kontrolünü aktif etmek için kullanılır.
 
     //Smtp Ayarları
     'smtpServer' => 'smtp.yandex.com', //Smtp Sunucusu
@@ -29,4 +30,8 @@ return [
     'smtpPassword' => '', //Smtp Şifresi
     'smtpEncryption' => 'ssl', //ssl veya tls
     'adminEmail' => 'ik@ismailkose.com.tr', //Yönetici e-postası
+
+    //Sms Ayarları (NeGSM)
+    'smsNetGsmUsername' => 'kyz',
+    'smsNetGsmPassword' => '1',
 ];

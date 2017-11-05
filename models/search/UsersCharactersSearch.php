@@ -22,8 +22,8 @@ class UsersCharactersSearch extends UsersCharacters
     public function rules()
     {
         return [
-            [['name', 'account', 'dam'], 'safe'],
-            [['gold', 'ostr', 'odex', 'oint', 'hits', 'stam', 'mana'], 'integer'],
+            [['name', 'account'], 'safe'],
+            [['ostr', 'odex', 'oint', 'hits', 'stam', 'mana'], 'integer'],
             [['is_online'], 'boolean'],
         ];
     }
@@ -44,13 +44,6 @@ class UsersCharactersSearch extends UsersCharacters
             $query->andFilterWhere(['=', 'account',$this->account]);
         }
 
-        if(!empty($this->dam)){
-            $query->andFilterWhere(['like','dam',$this->dam]);
-        }
-
-        if(!empty($this->gold)){
-            $query->andFilterWhere(['=','gold',$this->gold]);
-        }
 
         $query->andFilterWhere(['=','is_online',$this->is_online]);
 

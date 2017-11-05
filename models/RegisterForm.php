@@ -42,7 +42,7 @@ class RegisterForm extends Model
         //Gsm pattern
         [['gsm'], 'match', 'pattern' => '/^[0-9]{3}-[0-9]{4}-[0-9]{3}$/'],
         //Kullanıcı adı sadece harfler ve sayılardan oluşmalı.
-      ['username', 'match', 'pattern' => '/^[a-zA-Z1-9\s]+$/', 'message' => 'Kullanıcı adı sadece harfler ve sayılardan oluşabilir.']
+      ['username', 'match', 'pattern' => '/^[a-zA-Z0-9\s]+$/', 'message' => 'Kullanıcı adı sadece harfler ve sayılardan oluşabilir.']
     ];
   }
 
