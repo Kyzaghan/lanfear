@@ -56,7 +56,7 @@ class UserController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(Url::to(['site/home', 'language' => Yii::$app->language]));
         }
 
         $model = new LoginForm();
@@ -67,7 +67,7 @@ class UserController extends Controller
             $users_login->ip = Yii::$app->request->getUserIP();
             $users_login->user_agent = Yii::$app->request->getUserAgent();
             $users_login->save();
-            return $this->redirect(['user/home']);
+            return $this->redirect(Url::to(['user/home', 'language' => Yii::$app->language]));
         }
         return $this->render('login', [
             'model' => $model,
@@ -81,8 +81,7 @@ class UserController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->redirect(Url::to(['site/home', 'language' => Yii::$app->language]));
     }
 
     /**
@@ -194,7 +193,7 @@ class UserController extends Controller
             if(\Yii::$app->params['confirmSms'])
             {
                 Helper::SendSMS('90'. str_replace($userModel->gsm, '-', ''), '', 'Hesabinizi onaylamak icin kodunuz: ' . $userModel->auth_key);
-                return $this->redirect(Url::to(['sms_confirm', 'username' => $userModel->username]));
+                return $this->redirect(Url::to(['sms_confirm', 'username' => $userModel->username, 'language' => Yii::$app->language]));
             } else if(\Yii::$app->params['confirmEmail']) //E-posta onaylama parametresi aktif edildi ise e-posta gönderiliyor
                 {
                     \Yii::$app->mailer->compose()
@@ -208,7 +207,7 @@ class UserController extends Controller
                         )
                         ->send();
                 }
-            return $this->redirect(['login']);
+            return $this->redirect(Url::to(['user/login', 'language' => Yii::$app->language]));
         }
 
 
@@ -239,7 +238,7 @@ class UserController extends Controller
         else{
             Yii::$app->getSession()->setFlash('warning','Failed!');
         }
-        return $this->goHome();
+        return $this->redirect(Url::to(['site/home', 'language' => Yii::$app->language]));
     }
 
 
@@ -249,13 +248,13 @@ class UserController extends Controller
     public function actionPassword_recovery()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(Url::to(['site/home', 'language' => Yii::$app->language]));
         }
 
         $model = new PasswordRecoveryForm();
         if ($model->load(Yii::$app->request->post()) && $model->recovery()) {
 
-            return $this->redirect(['site/home']);
+            return $this->redirect(Url::to(['site/home', 'language' => Yii::$app->language]));
         }
 
         return $this->render('recovery', [

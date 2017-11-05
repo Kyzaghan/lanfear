@@ -11,7 +11,6 @@ namespace app\components;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\ButtonDropdown;
-use yii\bootstrap\Dropdown;
 use yii\helpers\Url;
 
 class languageSwitcher extends Widget

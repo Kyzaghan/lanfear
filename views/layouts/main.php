@@ -7,6 +7,7 @@ use app\components\languageSwitcher;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -45,20 +46,20 @@ $username = !Yii::$app->user->isGuest ? Yii::$app->user->identity->username : ""
         'options' => ['class' => 'navbar-nav navbar-right'],
         'encodeLabels' => false,
         'items' => [
-            ['label' => Icon::show('home') .'Anasayfa', 'url' => ['/site/home']],
+            ['label' => Icon::show('home') .'Anasayfa', 'url' => Url::to(['site/home', 'language' => Yii::$app->language])],
             ['label' => Icon::show('map') .'Harita', 'url' => ['/map/home']],
             ['label' => Icon::show('pie-chart') .'İstatistikler',
                 'items' => [
-                ['label' => Icon::show('users') .'Karakter Listesi', 'url' => ['/stat/characters']],
+                ['label' => Icon::show('users') .'Karakter Listesi', 'url' => Url::to(['stat/characters', 'language' => Yii::$app->language])],
             ]],
             [
                 'label' => Icon::show('user-plus') .'Kayıt Ol',
-                'url' => ['user/register'],
+                'url' => Url::to(['user/register', 'language' => Yii::$app->language]),
                 'visible' => Yii::$app->user->isGuest
             ],
             [
                 'label' => Icon::show('sign-in') .'Giriş Yap',
-                'url' => ['user/login'],
+                'url' => Url::to(['user/login', 'language' => Yii::$app->language]),
                 'visible' => Yii::$app->user->isGuest
             ],
 
@@ -66,8 +67,8 @@ $username = !Yii::$app->user->isGuest ? Yii::$app->user->identity->username : ""
                 'label' => Icon::show('user') . $username,
                 'visible' => !Yii::$app->user->isGuest,
                 'items' => [
-                    ['label' => Icon::show('user') .'Profilim', 'url' => ['/user/home']],
-                    ['label' => Icon::show('sign-out') .'Çıkış Yap', 'url' => ['/user/logout']],
+                    ['label' => Icon::show('user') .'Profilim', 'url' => Url::to(['user/home', 'language' => Yii::$app->language])],
+                    ['label' => Icon::show('sign-out') .'Çıkış Yap', 'url' => Url::to(['user/logout', 'language' => Yii::$app->language])],
                 ]
             ],
             languageSwitcher::Widget()
