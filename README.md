@@ -2,7 +2,7 @@
 
 Ultima Online - Portal Sistemi
 
-# Demo
+## Demo
 http://lanfear.ismailkose.com.tr/web
 
 ## Gereksinimler
@@ -10,8 +10,8 @@ http://lanfear.ismailkose.com.tr/web
 Uygulamayı çalıştırmak için gerekli bileşenler
 
 ```
-PHP >= 5.6.4
-MYSQL >= ?.?.?
+PHP >= 5.4.0 (Önerilen 7.x)
+MYSQL >= 5.x
 ```
 
 ## Yükleme Yönergeleri
