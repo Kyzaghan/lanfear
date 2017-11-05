@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
-use app\models\database\Users;
-$data = Users::find()->select(['name', 'account', 'last_login'])->from('users_characters')->Where(['not', ['last_login' => null]])->limit(5)->orderBy('last_login DESC')->asArray()->all();
+use app\models\database\UsersCharacters;
+$data = UsersCharacters::find()->select(['name', 'account', 'last_login'])->from('users_characters')->Where(['not', ['last_login' => null]])->limit(5)->orderBy('last_login DESC')->asArray()->all();
 $count = 1;
 ?>
 <ul class="list-group" style="margin-bottom:0px; !important;">

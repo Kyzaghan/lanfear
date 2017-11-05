@@ -68,4 +68,13 @@ class StatController extends Controller
             'model' => $searchModel,
         ]);
     }
+
+    /**
+     * Karakterlerim
+     * @return View
+     */
+    public function actionMy_chars()
+    {
+        return $this->renderPartial('MyChars');
+    }
 }

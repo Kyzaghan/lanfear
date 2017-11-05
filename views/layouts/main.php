@@ -14,7 +14,7 @@ use kartik\icons\Icon;
 Icon::map($this);
 
 AppAsset::register($this);
-$username =  !Yii::$app->user->isGuest ? Yii::$app->user->identity->username : "";
+$username = !Yii::$app->user->isGuest ? Yii::$app->user->identity->username : "";
 
 ?>
 <?php $this->beginPage() ?>
